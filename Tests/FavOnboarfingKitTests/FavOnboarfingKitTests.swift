@@ -1,7 +1,7 @@
 import XCTest
-@testable import FavOnboarfingKit
+@testable import FavOnboardingKit
 
-final class FavOnboarfingKitTests: XCTestCase {
+final class FavOnboardingKitTests: XCTestCase {
     func testExample() throws {
         // XCTest Documentation
         // https://developer.apple.com/documentation/xctest

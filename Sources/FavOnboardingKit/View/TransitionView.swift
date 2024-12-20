@@ -8,6 +8,7 @@
 import UIKit
 class TransitionView: UIView{
     
+    private let themeFont: UIFont
     private var timer: DispatchSourceTimer?
     private let slides: [Slide]
     private var barTintColor: UIColor
@@ -16,9 +17,10 @@ class TransitionView: UIView{
         return index
     }
     
-    init(barTintColor:UIColor,slides: [Slide]){
+    init(barTintColor:UIColor,slides: [Slide],themeFont: UIFont){
         self.slides = slides
         self.barTintColor = barTintColor
+        self.themeFont = themeFont
         super.init(frame: .zero)
         layout()
     }
@@ -58,8 +60,8 @@ class TransitionView: UIView{
         return views
     }()
     
-    private let titleView: TitleView = {
-        let view = TitleView()
+    private lazy var titleView: TitleView = {
+        let view = TitleView(themeFont: themeFont)
         return view
     }()
     
@@ -110,6 +112,10 @@ class TransitionView: UIView{
             nextTitle = slides[0].title
             nextBarView = barViews[0]
             index = 0
+            //reset all animated bar views
+            for barView in barViews {
+                barView.reset()
+            }
         }
         UIView.transition(with: self.imageView, duration: 0.5,options: .transitionCrossDissolve) {
             self.imageView.image = nextImage

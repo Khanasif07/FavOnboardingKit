@@ -1,24 +1,26 @@
 // The Swift Programming Language
 // https://docs.swift.org/swift-book
 import UIKit
-public protocol FavOnboarfingKitDelegate: NSObject{
+public protocol FavOnboardingKitDelegate: NSObject{
     func nextButtonDidTap(atIndex index: Int)
     func getStartedButtonDidTap()
 }
-public class FavOnboarfingKit{
+public class FavOnboardingKit{
     
-    public weak var delegate: FavOnboarfingKitDelegate?
+    private let themeFont: UIFont
+    public weak var delegate: FavOnboardingKitDelegate?
     private let slides : [Slide]
     private let tintColor: UIColor
     private var rootVC: UIViewController?
     
-    public init(slides: [Slide], tintColor: UIColor){
+    public init(slides: [Slide], tintColor: UIColor,themeFont: UIFont =  UIFont(name: "ArialRoundedMTBold", size: 28) ?? UIFont.systemFont(ofSize: 28)){
         self.slides = slides
         self.tintColor = tintColor
+        self.themeFont = themeFont
     }
     
     private lazy var onboardingViewController: OnboardingViewController = {
-        let controller = OnboardingViewController(slides: self.slides, tintColor: self.tintColor)
+        let controller = OnboardingViewController(slides: self.slides, tintColor: self.tintColor, themeFont: themeFont)
         controller.modalTransitionStyle = .crossDissolve
         controller.modalPresentationStyle = .fullScreen
         controller.nextButtonDidTap = { [weak self] index in
